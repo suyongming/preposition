@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.general.MedicalReportMapper" >
+
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.MedicalReport" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="EXAM_NO" property="examNo" jdbcType="VARCHAR" />
+        <result column="EXAM_DATE" property="examDate" jdbcType="VARCHAR" />
+        <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+        <result column="REPORT_TIME" property="reportTime" jdbcType="VARCHAR" />
+        <result column="VERIFY_TIME" property="verifyTime" jdbcType="VARCHAR" />
+        <result column="IDENTITY_TYPE" property="identityType" jdbcType="INTEGER" />
+        <result column="IDENTITY" property="identity" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+        <result column="AGE" property="age" jdbcType="VARCHAR" />
+        <result column="BIRTH_DATE" property="birthDate" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="CHIEF_DOCTOR_CODE" property="chiefDoctorCode" jdbcType="VARCHAR" />
+        <result column="CHIEF_DOCTOR_NAME" property="chiefDoctorName" jdbcType="VARCHAR" />
+        <result column="VERIFY_DOCTOR_CODE" property="verifyDoctorCode" jdbcType="VARCHAR" />
+        <result column="VERIFY_DOCTOR_NAME" property="verifyDoctorName" jdbcType="VARCHAR" />
+        <result column="SUMMARY" property="summary" jdbcType="LONGVARCHAR" />
+        <result column="SUGGESTION" property="suggestion" jdbcType="LONGVARCHAR" />
+        <result column="CONCLUSION" property="conclusion" jdbcType="LONGVARCHAR" />
+        <result column="PACKAGE_CODE" property="packageCode" jdbcType="VARCHAR" />
+        <result column="PACKAGE_NAME" property="packageName" jdbcType="VARCHAR" />
+        <result column="ITEMS" property="items" jdbcType="LONGVARCHAR" />
+        <result column="INSTITUTION_CODE" property="institutionCode" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+        <result column="GET_REPORT_DATE" property="getReportDate" jdbcType="DATE" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="health_prescription" property="healthPrescription" jdbcType="LONGVARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, EXAM_NO, EXAM_DATE, REPORT_NO, REPORT_TIME, VERIFY_TIME, IDENTITY_TYPE, IDENTITY, 
+        NAME, GENDER, AGE, BIRTH_DATE, PHONE, CHIEF_DOCTOR_CODE, CHIEF_DOCTOR_NAME, VERIFY_DOCTOR_CODE, 
+        VERIFY_DOCTOR_NAME, SUMMARY, SUGGESTION, CONCLUSION, PACKAGE_CODE, PACKAGE_NAME, 
+        ITEMS, INSTITUTION_CODE, CREATE_TIME, UPDATE_TIME, USER_ID, GET_REPORT_DATE, status, 
+        health_prescription
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.etong.exchange.preposition.entity.example.MedicalReportExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from tb_medical_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from tb_medical_report
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_medical_report
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.etong.exchange.preposition.entity.example.MedicalReportExample" >
+        delete from tb_medical_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.etong.exchange.preposition.entity.MedicalReport" >
+        insert into tb_medical_report (ID, EXAM_NO, EXAM_DATE, 
+            REPORT_NO, REPORT_TIME, VERIFY_TIME, 
+            IDENTITY_TYPE, IDENTITY, NAME, 
+            GENDER, AGE, BIRTH_DATE, 
+            PHONE, CHIEF_DOCTOR_CODE, CHIEF_DOCTOR_NAME, 
+            VERIFY_DOCTOR_CODE, VERIFY_DOCTOR_NAME, SUMMARY, 
+            SUGGESTION, CONCLUSION, PACKAGE_CODE, 
+            PACKAGE_NAME, ITEMS, INSTITUTION_CODE, 
+            CREATE_TIME, UPDATE_TIME, USER_ID, 
+            status, health_prescription
+            )
+        values (#{id,jdbcType=VARCHAR}, #{examNo,jdbcType=VARCHAR}, #{examDate,jdbcType=VARCHAR}, 
+            #{reportNo,jdbcType=VARCHAR}, #{reportTime,jdbcType=VARCHAR}, #{verifyTime,jdbcType=VARCHAR}, 
+            #{identityType,jdbcType=INTEGER}, #{identity,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+            #{gender,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, #{birthDate,jdbcType=VARCHAR}, 
+            #{phone,jdbcType=VARCHAR}, #{chiefDoctorCode,jdbcType=VARCHAR}, #{chiefDoctorName,jdbcType=VARCHAR}, 
+            #{verifyDoctorCode,jdbcType=VARCHAR}, #{verifyDoctorName,jdbcType=VARCHAR}, #{summary,jdbcType=LONGVARCHAR}, 
+            #{suggestion,jdbcType=LONGVARCHAR}, #{conclusion,jdbcType=LONGVARCHAR}, #{packageCode,jdbcType=VARCHAR}, 
+            #{packageName,jdbcType=VARCHAR}, #{items,jdbcType=LONGVARCHAR}, #{institutionCode,jdbcType=VARCHAR}, 
+            now(), now(), #{userId,jdbcType=VARCHAR},
+             #{status,jdbcType=VARCHAR}, #{healthPrescription,jdbcType=LONGVARCHAR}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.etong.exchange.preposition.entity.MedicalReport" >
+        insert into tb_medical_report
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="examNo != null" >
+                EXAM_NO,
+            </if>
+            <if test="examDate != null" >
+                EXAM_DATE,
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO,
+            </if>
+            <if test="reportTime != null" >
+                REPORT_TIME,
+            </if>
+            <if test="verifyTime != null" >
+                VERIFY_TIME,
+            </if>
+            <if test="identityType != null" >
+                IDENTITY_TYPE,
+            </if>
+            <if test="identity != null" >
+                IDENTITY,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="gender != null" >
+                GENDER,
+            </if>
+            <if test="age != null" >
+                AGE,
+            </if>
+            <if test="birthDate != null" >
+                BIRTH_DATE,
+            </if>
+            <if test="phone != null" >
+                PHONE,
+            </if>
+            <if test="chiefDoctorCode != null" >
+                CHIEF_DOCTOR_CODE,
+            </if>
+            <if test="chiefDoctorName != null" >
+                CHIEF_DOCTOR_NAME,
+            </if>
+            <if test="verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE,
+            </if>
+            <if test="verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME,
+            </if>
+            <if test="summary != null" >
+                SUMMARY,
+            </if>
+            <if test="suggestion != null" >
+                SUGGESTION,
+            </if>
+            <if test="conclusion != null" >
+                CONCLUSION,
+            </if>
+            <if test="packageCode != null" >
+                PACKAGE_CODE,
+            </if>
+            <if test="packageName != null" >
+                PACKAGE_NAME,
+            </if>
+            <if test="items != null" >
+                ITEMS,
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="userId != null" >
+                USER_ID,
+            </if>
+            <if test="getReportDate != null" >
+                GET_REPORT_DATE,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="healthPrescription != null" >
+                health_prescription,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="examNo != null" >
+                #{examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="examDate != null" >
+                #{examDate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportNo != null" >
+                #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportTime != null" >
+                #{reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyTime != null" >
+                #{verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="identityType != null" >
+                #{identityType,jdbcType=INTEGER},
+            </if>
+            <if test="identity != null" >
+                #{identity,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                #{age,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null" >
+                #{birthDate,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="chiefDoctorCode != null" >
+                #{chiefDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="chiefDoctorName != null" >
+                #{chiefDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorCode != null" >
+                #{verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorName != null" >
+                #{verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null" >
+                #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="suggestion != null" >
+                #{suggestion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="conclusion != null" >
+                #{conclusion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="packageCode != null" >
+                #{packageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null" >
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null" >
+                #{items,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="getReportDate != null" >
+                #{getReportDate,jdbcType=DATE},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="healthPrescription != null" >
+                #{healthPrescription,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.etong.exchange.preposition.entity.example.MedicalReportExample" resultType="java.lang.Integer" >
+        select count(*) from tb_medical_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update tb_medical_report
+        <set >
+            <if test="record.id != null" >
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examNo != null" >
+                EXAM_NO = #{record.examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examDate != null" >
+                EXAM_DATE = #{record.examDate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportNo != null" >
+                REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportTime != null" >
+                REPORT_TIME = #{record.reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyTime != null" >
+                VERIFY_TIME = #{record.verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.identityType != null" >
+                IDENTITY_TYPE = #{record.identityType,jdbcType=INTEGER},
+            </if>
+            <if test="record.identity != null" >
+                IDENTITY = #{record.identity,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null" >
+                NAME = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gender != null" >
+                GENDER = #{record.gender,jdbcType=VARCHAR},
+            </if>
+            <if test="record.age != null" >
+                AGE = #{record.age,jdbcType=VARCHAR},
+            </if>
+            <if test="record.birthDate != null" >
+                BIRTH_DATE = #{record.birthDate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null" >
+                PHONE = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chiefDoctorCode != null" >
+                CHIEF_DOCTOR_CODE = #{record.chiefDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chiefDoctorName != null" >
+                CHIEF_DOCTOR_NAME = #{record.chiefDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE = #{record.verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME = #{record.verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.summary != null" >
+                SUMMARY = #{record.summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.suggestion != null" >
+                SUGGESTION = #{record.suggestion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.conclusion != null" >
+                CONCLUSION = #{record.conclusion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.packageCode != null" >
+                PACKAGE_CODE = #{record.packageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.packageName != null" >
+                PACKAGE_NAME = #{record.packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.items != null" >
+                ITEMS = #{record.items,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.institutionCode != null" >
+                INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null" >
+                UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.userId != null" >
+                USER_ID = #{record.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.getReportDate != null" >
+                GET_REPORT_DATE = #{record.getReportDate,jdbcType=DATE},
+            </if>
+            <if test="record.status != null" >
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.healthPrescription != null" >
+                health_prescription = #{record.healthPrescription,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update tb_medical_report
+        set ID = #{record.id,jdbcType=VARCHAR},
+            EXAM_NO = #{record.examNo,jdbcType=VARCHAR},
+            EXAM_DATE = #{record.examDate,jdbcType=VARCHAR},
+            REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+            REPORT_TIME = #{record.reportTime,jdbcType=VARCHAR},
+            VERIFY_TIME = #{record.verifyTime,jdbcType=VARCHAR},
+            IDENTITY_TYPE = #{record.identityType,jdbcType=INTEGER},
+            IDENTITY = #{record.identity,jdbcType=VARCHAR},
+            NAME = #{record.name,jdbcType=VARCHAR},
+            GENDER = #{record.gender,jdbcType=VARCHAR},
+            AGE = #{record.age,jdbcType=VARCHAR},
+            BIRTH_DATE = #{record.birthDate,jdbcType=VARCHAR},
+            PHONE = #{record.phone,jdbcType=VARCHAR},
+            CHIEF_DOCTOR_CODE = #{record.chiefDoctorCode,jdbcType=VARCHAR},
+            CHIEF_DOCTOR_NAME = #{record.chiefDoctorName,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_CODE = #{record.verifyDoctorCode,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_NAME = #{record.verifyDoctorName,jdbcType=VARCHAR},
+            SUMMARY = #{record.summary,jdbcType=LONGVARCHAR},
+            SUGGESTION = #{record.suggestion,jdbcType=LONGVARCHAR},
+            CONCLUSION = #{record.conclusion,jdbcType=LONGVARCHAR},
+            PACKAGE_CODE = #{record.packageCode,jdbcType=VARCHAR},
+            PACKAGE_NAME = #{record.packageName,jdbcType=VARCHAR},
+            ITEMS = #{record.items,jdbcType=LONGVARCHAR},
+            INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            USER_ID = #{record.userId,jdbcType=VARCHAR},
+            GET_REPORT_DATE = #{record.getReportDate,jdbcType=DATE},
+            status = #{record.status,jdbcType=VARCHAR},
+            health_prescription = #{record.healthPrescription,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.etong.exchange.preposition.entity.MedicalReport" >
+        update tb_medical_report
+        <set >
+            <if test="examNo != null" >
+                EXAM_NO = #{examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="examDate != null" >
+                EXAM_DATE = #{examDate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportTime != null" >
+                REPORT_TIME = #{reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyTime != null" >
+                VERIFY_TIME = #{verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="identityType != null" >
+                IDENTITY_TYPE = #{identityType,jdbcType=INTEGER},
+            </if>
+            <if test="identity != null" >
+                IDENTITY = #{identity,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                GENDER = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                AGE = #{age,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null" >
+                BIRTH_DATE = #{birthDate,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="chiefDoctorCode != null" >
+                CHIEF_DOCTOR_CODE = #{chiefDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="chiefDoctorName != null" >
+                CHIEF_DOCTOR_NAME = #{chiefDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE = #{verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME = #{verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null" >
+                SUMMARY = #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="suggestion != null" >
+                SUGGESTION = #{suggestion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="conclusion != null" >
+                CONCLUSION = #{conclusion,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="packageCode != null" >
+                PACKAGE_CODE = #{packageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null" >
+                PACKAGE_NAME = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null" >
+                ITEMS = #{items,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null" >
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="getReportDate != null" >
+                GET_REPORT_DATE = #{getReportDate,jdbcType=DATE},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="healthPrescription != null" >
+                health_prescription = #{healthPrescription,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.etong.exchange.preposition.entity.MedicalReport" >
+        update tb_medical_report
+        set EXAM_NO = #{examNo,jdbcType=VARCHAR},
+            EXAM_DATE = #{examDate,jdbcType=VARCHAR},
+            REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            REPORT_TIME = #{reportTime,jdbcType=VARCHAR},
+            VERIFY_TIME = #{verifyTime,jdbcType=VARCHAR},
+            IDENTITY_TYPE = #{identityType,jdbcType=INTEGER},
+            IDENTITY = #{identity,jdbcType=VARCHAR},
+            NAME = #{name,jdbcType=VARCHAR},
+            GENDER = #{gender,jdbcType=VARCHAR},
+            AGE = #{age,jdbcType=VARCHAR},
+            BIRTH_DATE = #{birthDate,jdbcType=VARCHAR},
+            PHONE = #{phone,jdbcType=VARCHAR},
+            CHIEF_DOCTOR_CODE = #{chiefDoctorCode,jdbcType=VARCHAR},
+            CHIEF_DOCTOR_NAME = #{chiefDoctorName,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_CODE = #{verifyDoctorCode,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_NAME = #{verifyDoctorName,jdbcType=VARCHAR},
+            SUMMARY = #{summary,jdbcType=LONGVARCHAR},
+            SUGGESTION = #{suggestion,jdbcType=LONGVARCHAR},
+            CONCLUSION = #{conclusion,jdbcType=LONGVARCHAR},
+            PACKAGE_CODE = #{packageCode,jdbcType=VARCHAR},
+            PACKAGE_NAME = #{packageName,jdbcType=VARCHAR},
+            ITEMS = #{items,jdbcType=LONGVARCHAR},
+            INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            USER_ID = #{userId,jdbcType=VARCHAR},
+            GET_REPORT_DATE = #{getReportDate,jdbcType=DATE},
+            status = #{status,jdbcType=VARCHAR},
+            health_prescription = #{healthPrescription,jdbcType=LONGVARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

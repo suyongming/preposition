@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.MedicalPropositionMapper" >
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.MedicalPreposition" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="base_url" property="baseUrl" jdbcType="VARCHAR" />
+        <result column="institution_code" property="institutionCode" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="getConfigInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from tb_medical_preposition where institution_code = #{institutionCode}
+    </select>
+
+</mapper>

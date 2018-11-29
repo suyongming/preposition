@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.general.MedicalPackageMapper" >
+
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.MedicalPackage" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+        <result column="GENDER" property="gender" jdbcType="INTEGER" />
+        <result column="MARITAL" property="marital" jdbcType="INTEGER" />
+        <result column="SUIT" property="suit" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="AVATAR" property="avatar" jdbcType="VARCHAR" />
+        <result column="NOTICE" property="notice" jdbcType="LONGVARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="INTEGER" />
+        <result column="INSTITUTION_CODE" property="institutionCode" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="SORT" property="sort" jdbcType="INTEGER" />
+        <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, CODE, NAME, PRICE, GENDER, MARITAL, SUIT, DESCRIPTION, REMARK, AVATAR, NOTICE, 
+        DEL_FLAG, INSTITUTION_CODE, CREATE_TIME, UPDATE_TIME, SORT, CATEGORY
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.etong.exchange.preposition.entity.example.MedicalPackageExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from tb_medical_package
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from tb_medical_package
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_medical_package
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.etong.exchange.preposition.entity.example.MedicalPackageExample" >
+        delete from tb_medical_package
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.etong.exchange.preposition.entity.custom.MedicalPackageDTO" >
+        insert into tb_medical_package (
+            ID,
+            NAME,
+            CODE,
+            PRICE,
+            GENDER,
+            MARITAL,
+            SUIT,
+            DESCRIPTION,
+            REMARK,
+            AVATAR,
+            NOTICE,
+            DEL_FLAG,
+            INSTITUTION_CODE,
+            CREATE_TIME,
+            UPDATE_TIME
+            )
+        values (
+            #{id},
+            #{name},
+            #{code},
+            #{price,jdbcType=VARCHAR},
+            #{gender,jdbcType=INTEGER},
+             #{marital,jdbcType=INTEGER},
+            #{suit,jdbcType=VARCHAR},
+            #{description,jdbcType=VARCHAR},
+            #{remark,jdbcType=VARCHAR},
+            #{avatar,jdbcType=VARCHAR},
+             #{notice,jdbcType=LONGVARCHAR},
+             #{delFlag,jdbcType=INTEGER},
+             #{institutionCode,jdbcType=VARCHAR},
+            now(),
+            now()
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.etong.exchange.preposition.entity.MedicalPackage" >
+        insert into tb_medical_package
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="code != null" >
+                CODE,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="price != null" >
+                PRICE,
+            </if>
+            <if test="gender != null" >
+                GENDER,
+            </if>
+            <if test="marital != null" >
+                MARITAL,
+            </if>
+            <if test="suit != null" >
+                SUIT,
+            </if>
+            <if test="description != null" >
+                DESCRIPTION,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+            <if test="avatar != null" >
+                AVATAR,
+            </if>
+            <if test="notice != null" >
+                NOTICE,
+            </if>
+            <if test="delFlag != null" >
+                DEL_FLAG,
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="marital != null" >
+                #{marital,jdbcType=INTEGER},
+            </if>
+            <if test="suit != null" >
+                #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null" >
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="notice != null" >
+                #{notice,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="delFlag != null" >
+                #{delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="institutionCode != null" >
+                #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.etong.exchange.preposition.entity.example.MedicalPackageExample" resultType="java.lang.Integer" >
+        select count(*) from tb_medical_package
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update tb_medical_package
+        <set >
+            <if test="record.id != null" >
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.code != null" >
+                CODE = #{record.code,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null" >
+                NAME = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.price != null" >
+                PRICE = #{record.price,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gender != null" >
+                GENDER = #{record.gender,jdbcType=INTEGER},
+            </if>
+            <if test="record.marital != null" >
+                MARITAL = #{record.marital,jdbcType=INTEGER},
+            </if>
+            <if test="record.suit != null" >
+                SUIT = #{record.suit,jdbcType=VARCHAR},
+            </if>
+            <if test="record.description != null" >
+                DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark != null" >
+                REMARK = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.avatar != null" >
+                AVATAR = #{record.avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="record.notice != null" >
+                NOTICE = #{record.notice,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.delFlag != null" >
+                DEL_FLAG = #{record.delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="record.institutionCode != null" >
+                INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null" >
+                UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.sort != null" >
+                SORT = #{record.sort,jdbcType=INTEGER},
+            </if>
+            <if test="record.category != null" >
+                CATEGORY = #{record.category,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update tb_medical_package
+        set ID = #{record.id,jdbcType=VARCHAR},
+            CODE = #{record.code,jdbcType=VARCHAR},
+            NAME = #{record.name,jdbcType=VARCHAR},
+            PRICE = #{record.price,jdbcType=VARCHAR},
+            GENDER = #{record.gender,jdbcType=INTEGER},
+            MARITAL = #{record.marital,jdbcType=INTEGER},
+            SUIT = #{record.suit,jdbcType=VARCHAR},
+            DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+            REMARK = #{record.remark,jdbcType=VARCHAR},
+            AVATAR = #{record.avatar,jdbcType=VARCHAR},
+            NOTICE = #{record.notice,jdbcType=LONGVARCHAR},
+            DEL_FLAG = #{record.delFlag,jdbcType=INTEGER},
+            INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            SORT = #{record.sort,jdbcType=INTEGER},
+            CATEGORY = #{record.category,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.etong.exchange.preposition.entity.MedicalPackage" >
+        update tb_medical_package
+        <set >
+            <if test="code != null" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                PRICE = #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                GENDER = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="marital != null" >
+                MARITAL = #{marital,jdbcType=INTEGER},
+            </if>
+            <if test="suit != null" >
+                SUIT = #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null" >
+                AVATAR = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="notice != null" >
+                NOTICE = #{notice,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="delFlag != null" >
+                DEL_FLAG = #{delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="category != null" >
+                CATEGORY = #{category,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.etong.exchange.preposition.entity.MedicalPackage" >
+        update tb_medical_package
+        set CODE = #{code,jdbcType=VARCHAR},
+            NAME = #{name,jdbcType=VARCHAR},
+            PRICE = #{price,jdbcType=VARCHAR},
+            GENDER = #{gender,jdbcType=INTEGER},
+            MARITAL = #{marital,jdbcType=INTEGER},
+            SUIT = #{suit,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            AVATAR = #{avatar,jdbcType=VARCHAR},
+            NOTICE = #{notice,jdbcType=LONGVARCHAR},
+            DEL_FLAG = #{delFlag,jdbcType=INTEGER},
+            INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            SORT = #{sort,jdbcType=INTEGER},
+            CATEGORY = #{category,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

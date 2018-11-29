@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.general.MedicalItemMapper" >
+
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.MedicalItem" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+        <result column="GENDER" property="gender" jdbcType="INTEGER" />
+        <result column="MARITAL" property="marital" jdbcType="INTEGER" />
+        <result column="SUIT" property="suit" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+        <result column="INSTITUTION_CODE" property="institutionCode" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="ITEM_SHOW" property="itemShow" jdbcType="INTEGER" />
+        <result column="ITEM_PRICE_SHOW" property="itemPriceShow" jdbcType="INTEGER" />
+        <result column="PROJECT_SHOW" property="projectShow" jdbcType="INTEGER" />
+        <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="ISPOP" property="ispop" jdbcType="INTEGER" />
+        <result column="POP_TEXT" property="popText" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID, CODE, NAME, PRICE, GENDER, MARITAL, SUIT, DESCRIPTION, REMARK, INSTITUTION_CODE, 
+        CREATE_TIME, UPDATE_TIME, ITEM_SHOW, ITEM_PRICE_SHOW, PROJECT_SHOW, alias_name, sort, 
+        ISPOP, POP_TEXT
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from tb_medical_item
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_medical_item
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.etong.exchange.preposition.entity.MedicalItem" >
+        insert into tb_medical_item (ID, CODE, NAME, 
+            PRICE, GENDER, MARITAL, 
+            SUIT, DESCRIPTION, REMARK, 
+            INSTITUTION_CODE, CREATE_TIME, UPDATE_TIME,
+            ITEM_SHOW, ITEM_PRICE_SHOW, PROJECT_SHOW,
+            alias_name, sort,
+            POP_TEXT)
+        values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+            #{price,jdbcType=VARCHAR}, #{gender}, #{marital},
+            #{suit,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}, 
+            #{institutionCode,jdbcType=VARCHAR},now(), now(),
+            #{itemShow,jdbcType=INTEGER}, #{itemPriceShow,jdbcType=INTEGER}, #{projectShow,jdbcType=INTEGER}, 
+            #{aliasName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER},
+            #{popText,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.etong.exchange.preposition.entity.MedicalItem" >
+        insert into tb_medical_item
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="null != id and !''.equals(id.toString())" >
+                ID,
+            </if>
+            <if test="code != null and !''.equals(code.toString())" >
+                CODE,
+            </if>
+            <if test="name != null and !''.equals(name.toString())" >
+                NAME,
+            </if>
+            <if test="price != null and !''.equals(price.toString())" >
+                PRICE,
+            </if>
+            <if test="gender != null and !''.equals(gender.toString())" >
+                GENDER,
+            </if>
+            <if test="marital != null and !''.equals(marital.toString())" >
+                MARITAL,
+            </if>
+            <if test="suit != null and !''.equals(suit.toString())" >
+                SUIT,
+            </if>
+            <if test="description != null and !''.equals(description.toString())" >
+                DESCRIPTION,
+            </if>
+            <if test="remark != null and !''.equals(remark.toString())" >
+                REMARK,
+            </if>
+            <if test="institutionCode != null and !''.equals(institutionCode.toString())" >
+                INSTITUTION_CODE,
+            </if>
+            <if test="createTime != null and !''.equals(createTime.toString())" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null and !''.equals(updateTime.toString())" >
+                UPDATE_TIME,
+            </if>
+            <if test="itemShow != null and !''.equals(itemShow.toString())" >
+                ITEM_SHOW,
+            </if>
+            <if test="itemPriceShow != null and !''.equals(itemPriceShow.toString())" >
+                ITEM_PRICE_SHOW,
+            </if>
+            <if test="projectShow != null and !''.equals(projectShow.toString())" >
+                PROJECT_SHOW,
+            </if>
+            <if test="aliasName != null and !''.equals(aliasName.toString())" >
+                alias_name,
+            </if>
+            <if test="sort != null and !''.equals(sort.toString())" >
+                sort,
+            </if>
+            <!--<if test="ispop != null" >-->
+                <!--ISPOP,-->
+            <!--</if>-->
+            <if test="popText != null and !''.equals(popText.toString())" >
+                POP_TEXT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null and !''.equals(id.toString())" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null and !''.equals(code.toString())" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and !''.equals(name.toString())" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null and !''.equals(price.toString())" >
+                #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null and !''.equals(gender.toString())" >
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="marital != null and !''.equals(marital.toString())" >
+                #{marital,jdbcType=INTEGER},
+            </if>
+            <if test="suit != null and !''.equals(suit.toString())" >
+                #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and !''.equals(description.toString())" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null and !''.equals(remark.toString())" >
+                #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="institutionCode != null and !''.equals(institutionCode.toString())" >
+                #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null and !''.equals(createTime.toString())" >
+                now(),
+            </if>
+            <if test="updateTime != null and !''.equals(updateTime.toString())" >
+                now(),
+            </if>
+            <if test="sort != null and !''.equals(sort.toString())" >
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <!--<if test="ispop != null" >-->
+                <!--#{ispop,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <if test="popText != null and !''.equals(popText.toString())" >
+                #{popText,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.etong.exchange.preposition.entity.MedicalItem" >
+        update tb_medical_item
+        <set >
+            <if test="code != null" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                PRICE = #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                GENDER = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="marital != null" >
+                MARITAL = #{marital,jdbcType=INTEGER},
+            </if>
+            <if test="suit != null" >
+                SUIT = #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                REMARK = #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="itemPriceShow != null" >
+                ITEM_PRICE_SHOW = #{itemPriceShow,jdbcType=INTEGER},
+            </if>
+            <if test="projectShow != null" >
+                PROJECT_SHOW = #{projectShow,jdbcType=INTEGER},
+            </if>
+            <if test="aliasName != null" >
+                alias_name = #{aliasName,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="ispop != null" >
+                ISPOP = #{ispop,jdbcType=INTEGER},
+            </if>
+            <if test="popText != null" >
+                POP_TEXT = #{popText,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.etong.exchange.preposition.entity.MedicalItem" >
+        update tb_medical_item
+        set CODE = #{code,jdbcType=VARCHAR},
+            NAME = #{name,jdbcType=VARCHAR},
+            PRICE = #{price,jdbcType=VARCHAR},
+            GENDER = #{gender,jdbcType=INTEGER},
+            MARITAL = #{marital,jdbcType=INTEGER},
+            SUIT = #{suit,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=LONGVARCHAR},
+            INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ITEM_SHOW = #{itemShow,jdbcType=INTEGER},
+            ITEM_PRICE_SHOW = #{itemPriceShow,jdbcType=INTEGER},
+            PROJECT_SHOW = #{projectShow,jdbcType=INTEGER},
+            alias_name = #{aliasName,jdbcType=VARCHAR},
+            sort = #{sort,jdbcType=INTEGER},
+            ISPOP = #{ispop,jdbcType=INTEGER},
+            POP_TEXT = #{popText,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByHosCode" parameterType="java.lang.String">
+        DELETE FROM TB_MEDICAL_ITEM WHERE INSTITUTION_CODE = #{hosCode}
+    </delete>
+</mapper>

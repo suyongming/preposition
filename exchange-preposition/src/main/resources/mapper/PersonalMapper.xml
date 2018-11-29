@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.general.PersonalMapper" >
+
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.Personal" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="identity" property="identity" jdbcType="VARCHAR" />
+        <result column="identity_type" property="identityType" jdbcType="BIGINT" />
+        <result column="marital" property="marital" jdbcType="BIGINT" />
+        <result column="gender" property="gender" jdbcType="BIGINT" />
+        <result column="age" property="age" jdbcType="BIGINT" />
+        <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        id, name, identity, identity_type, marital, gender, age, birth_date, phone, create_time, 
+        update_time, address, institution_code
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.etong.exchange.preposition.entity.example.PersonalExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from tb_personal
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from tb_personal
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_personal
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.etong.exchange.preposition.entity.example.PersonalExample" >
+        delete from tb_personal
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.etong.exchange.preposition.entity.Personal" >
+        insert into tb_personal (id, name, identity, 
+            identity_type, marital, gender, 
+            age, birth_date, phone, 
+            create_time, update_time, address, 
+            institution_code)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, 
+            #{identityType,jdbcType=BIGINT}, #{marital,jdbcType=BIGINT}, #{gender,jdbcType=BIGINT}, 
+            #{age,jdbcType=BIGINT}, #{birthDate,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, 
+            now(), now(), #{address,jdbcType=VARCHAR},
+            #{institutionCode,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.etong.exchange.preposition.entity.Personal" >
+        insert into tb_personal
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="identity != null" >
+                identity,
+            </if>
+            <if test="identityType != null" >
+                identity_type,
+            </if>
+            <if test="marital != null" >
+                marital,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="age != null" >
+                age,
+            </if>
+            <if test="birthDate != null" >
+                birth_date,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="institutionCode != null" >
+                institution_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="identity != null" >
+                #{identity,jdbcType=VARCHAR},
+            </if>
+            <if test="identityType != null" >
+                #{identityType,jdbcType=BIGINT},
+            </if>
+            <if test="marital != null" >
+                #{marital,jdbcType=BIGINT},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=BIGINT},
+            </if>
+            <if test="age != null" >
+                #{age,jdbcType=BIGINT},
+            </if>
+            <if test="birthDate != null" >
+                #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                #{institutionCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.etong.exchange.preposition.entity.example.PersonalExample" resultType="java.lang.Integer" >
+        select count(*) from tb_personal
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update tb_personal
+        <set >
+            <if test="record.id != null" >
+                id = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null" >
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.identity != null" >
+                identity = #{record.identity,jdbcType=VARCHAR},
+            </if>
+            <if test="record.identityType != null" >
+                identity_type = #{record.identityType,jdbcType=BIGINT},
+            </if>
+            <if test="record.marital != null" >
+                marital = #{record.marital,jdbcType=BIGINT},
+            </if>
+            <if test="record.gender != null" >
+                gender = #{record.gender,jdbcType=BIGINT},
+            </if>
+            <if test="record.age != null" >
+                age = #{record.age,jdbcType=BIGINT},
+            </if>
+            <if test="record.birthDate != null" >
+                birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.phone != null" >
+                phone = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null" >
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.address != null" >
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.institutionCode != null" >
+                institution_code = #{record.institutionCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update tb_personal
+        set id = #{record.id,jdbcType=VARCHAR},
+            name = #{record.name,jdbcType=VARCHAR},
+            identity = #{record.identity,jdbcType=VARCHAR},
+            identity_type = #{record.identityType,jdbcType=BIGINT},
+            marital = #{record.marital,jdbcType=BIGINT},
+            gender = #{record.gender,jdbcType=BIGINT},
+            age = #{record.age,jdbcType=BIGINT},
+            birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+            phone = #{record.phone,jdbcType=VARCHAR},
+            create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            address = #{record.address,jdbcType=VARCHAR},
+            institution_code = #{record.institutionCode,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.etong.exchange.preposition.entity.Personal" >
+        update tb_personal
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="identity != null" >
+                identity = #{identity,jdbcType=VARCHAR},
+            </if>
+            <if test="identityType != null" >
+                identity_type = #{identityType,jdbcType=BIGINT},
+            </if>
+            <if test="marital != null" >
+                marital = #{marital,jdbcType=BIGINT},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=BIGINT},
+            </if>
+            <if test="age != null" >
+                age = #{age,jdbcType=BIGINT},
+            </if>
+            <if test="birthDate != null" >
+                birth_date = #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                institution_code = #{institutionCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.etong.exchange.preposition.entity.Personal" >
+        update tb_personal
+        set name = #{name,jdbcType=VARCHAR},
+            identity = #{identity,jdbcType=VARCHAR},
+            identity_type = #{identityType,jdbcType=BIGINT},
+            marital = #{marital,jdbcType=BIGINT},
+            gender = #{gender,jdbcType=BIGINT},
+            age = #{age,jdbcType=BIGINT},
+            birth_date = #{birthDate,jdbcType=TIMESTAMP},
+            phone = #{phone,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            address = #{address,jdbcType=VARCHAR},
+            institution_code = #{institutionCode,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

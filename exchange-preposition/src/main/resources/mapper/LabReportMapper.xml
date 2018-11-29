@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etong.exchange.preposition.dao.general.LabReportMapper" >
+
+    <resultMap id="BaseResultMap" type="com.etong.exchange.preposition.entity.LabReport" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="EXAM_NO" property="examNo" jdbcType="VARCHAR" />
+        <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+        <result column="REPORT_NAME" property="reportName" jdbcType="VARCHAR" />
+        <result column="EXAM_DOCTOR_CODE" property="examDoctorCode" jdbcType="VARCHAR" />
+        <result column="EXAM_DOCTOR_NAME" property="examDoctorName" jdbcType="VARCHAR" />
+        <result column="EXAM_TIME" property="examTime" jdbcType="VARCHAR" />
+        <result column="REPORT_DOCTOR_CODE" property="reportDoctorCode" jdbcType="VARCHAR" />
+        <result column="REPORT_DOCTOR_NAME" property="reportDoctorName" jdbcType="VARCHAR" />
+        <result column="REPORT_TIME" property="reportTime" jdbcType="VARCHAR" />
+        <result column="VERIFY_DOCTOR_CODE" property="verifyDoctorCode" jdbcType="VARCHAR" />
+        <result column="VERIFY_DOCTOR_NAME" property="verifyDoctorName" jdbcType="VARCHAR" />
+        <result column="VERIFY_TIME" property="verifyTime" jdbcType="VARCHAR" />
+        <result column="SPECIMEN_CODE" property="specimenCode" jdbcType="VARCHAR" />
+        <result column="SPECIMEN_NAME" property="specimenName" jdbcType="VARCHAR" />
+        <result column="INSTITUTION_CODE" property="institutionCode" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="exam_opinion" property="examOpinion" jdbcType="VARCHAR" />
+        <result column="department_code" property="departmentCode" jdbcType="VARCHAR" />
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, EXAM_NO, REPORT_NO, REPORT_NAME, EXAM_DOCTOR_CODE, EXAM_DOCTOR_NAME, EXAM_TIME, 
+        REPORT_DOCTOR_CODE, REPORT_DOCTOR_NAME, REPORT_TIME, VERIFY_DOCTOR_CODE, VERIFY_DOCTOR_NAME, 
+        VERIFY_TIME, SPECIMEN_CODE, SPECIMEN_NAME, INSTITUTION_CODE, CREATE_TIME, UPDATE_TIME, 
+        exam_opinion, department_code, department_name
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.etong.exchange.preposition.entity.example.LabReportExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from tb_lab_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from tb_lab_report
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_lab_report
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.etong.exchange.preposition.entity.example.LabReportExample" >
+        delete from tb_lab_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.etong.exchange.preposition.entity.LabReport" >
+        insert into tb_lab_report (ID, EXAM_NO, REPORT_NO, 
+            REPORT_NAME, EXAM_DOCTOR_CODE, EXAM_DOCTOR_NAME, 
+            EXAM_TIME, REPORT_DOCTOR_CODE, REPORT_DOCTOR_NAME, 
+            REPORT_TIME, VERIFY_DOCTOR_CODE, VERIFY_DOCTOR_NAME, 
+            VERIFY_TIME, SPECIMEN_CODE, SPECIMEN_NAME, 
+            INSTITUTION_CODE, CREATE_TIME, UPDATE_TIME, 
+            exam_opinion, department_code, department_name
+            )
+        values (#{id,jdbcType=VARCHAR}, #{examNo,jdbcType=VARCHAR}, #{reportNo,jdbcType=VARCHAR}, 
+            #{reportName,jdbcType=VARCHAR}, #{examDoctorCode,jdbcType=VARCHAR}, #{examDoctorName,jdbcType=VARCHAR}, 
+            #{examTime,jdbcType=VARCHAR}, #{reportDoctorCode,jdbcType=VARCHAR}, #{reportDoctorName,jdbcType=VARCHAR}, 
+            #{reportTime,jdbcType=VARCHAR}, #{verifyDoctorCode,jdbcType=VARCHAR}, #{verifyDoctorName,jdbcType=VARCHAR}, 
+            #{verifyTime,jdbcType=VARCHAR}, #{specimenCode,jdbcType=VARCHAR}, #{specimenName,jdbcType=VARCHAR}, 
+            #{institutionCode,jdbcType=VARCHAR}, now(), now(),
+            #{examOpinion,jdbcType=VARCHAR}, #{departmentCode,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.etong.exchange.preposition.entity.LabReport" >
+        insert into tb_lab_report
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="examNo != null" >
+                EXAM_NO,
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO,
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME,
+            </if>
+            <if test="examDoctorCode != null" >
+                EXAM_DOCTOR_CODE,
+            </if>
+            <if test="examDoctorName != null" >
+                EXAM_DOCTOR_NAME,
+            </if>
+            <if test="examTime != null" >
+                EXAM_TIME,
+            </if>
+            <if test="reportDoctorCode != null" >
+                REPORT_DOCTOR_CODE,
+            </if>
+            <if test="reportDoctorName != null" >
+                REPORT_DOCTOR_NAME,
+            </if>
+            <if test="reportTime != null" >
+                REPORT_TIME,
+            </if>
+            <if test="verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE,
+            </if>
+            <if test="verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME,
+            </if>
+            <if test="verifyTime != null" >
+                VERIFY_TIME,
+            </if>
+            <if test="specimenCode != null" >
+                SPECIMEN_CODE,
+            </if>
+            <if test="specimenName != null" >
+                SPECIMEN_NAME,
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="examOpinion != null" >
+                exam_opinion,
+            </if>
+            <if test="departmentCode != null" >
+                department_code,
+            </if>
+            <if test="departmentName != null" >
+                department_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="examNo != null" >
+                #{examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportNo != null" >
+                #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="examDoctorCode != null" >
+                #{examDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="examDoctorName != null" >
+                #{examDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="examTime != null" >
+                #{examTime,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDoctorCode != null" >
+                #{reportDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDoctorName != null" >
+                #{reportDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportTime != null" >
+                #{reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorCode != null" >
+                #{verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorName != null" >
+                #{verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyTime != null" >
+                #{verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="specimenCode != null" >
+                #{specimenCode,jdbcType=VARCHAR},
+            </if>
+            <if test="specimenName != null" >
+                #{specimenName,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="examOpinion != null" >
+                #{examOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentCode != null" >
+                #{departmentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentName != null" >
+                #{departmentName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.etong.exchange.preposition.entity.example.LabReportExample" resultType="java.lang.Integer" >
+        select count(*) from tb_lab_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update tb_lab_report
+        <set >
+            <if test="record.id != null" >
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examNo != null" >
+                EXAM_NO = #{record.examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportNo != null" >
+                REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportName != null" >
+                REPORT_NAME = #{record.reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examDoctorCode != null" >
+                EXAM_DOCTOR_CODE = #{record.examDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examDoctorName != null" >
+                EXAM_DOCTOR_NAME = #{record.examDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.examTime != null" >
+                EXAM_TIME = #{record.examTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportDoctorCode != null" >
+                REPORT_DOCTOR_CODE = #{record.reportDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportDoctorName != null" >
+                REPORT_DOCTOR_NAME = #{record.reportDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reportTime != null" >
+                REPORT_TIME = #{record.reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE = #{record.verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME = #{record.verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.verifyTime != null" >
+                VERIFY_TIME = #{record.verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.specimenCode != null" >
+                SPECIMEN_CODE = #{record.specimenCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.specimenName != null" >
+                SPECIMEN_NAME = #{record.specimenName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.institutionCode != null" >
+                INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null" >
+                UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.examOpinion != null" >
+                exam_opinion = #{record.examOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="record.departmentCode != null" >
+                department_code = #{record.departmentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.departmentName != null" >
+                department_name = #{record.departmentName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update tb_lab_report
+        set ID = #{record.id,jdbcType=VARCHAR},
+            EXAM_NO = #{record.examNo,jdbcType=VARCHAR},
+            REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+            REPORT_NAME = #{record.reportName,jdbcType=VARCHAR},
+            EXAM_DOCTOR_CODE = #{record.examDoctorCode,jdbcType=VARCHAR},
+            EXAM_DOCTOR_NAME = #{record.examDoctorName,jdbcType=VARCHAR},
+            EXAM_TIME = #{record.examTime,jdbcType=VARCHAR},
+            REPORT_DOCTOR_CODE = #{record.reportDoctorCode,jdbcType=VARCHAR},
+            REPORT_DOCTOR_NAME = #{record.reportDoctorName,jdbcType=VARCHAR},
+            REPORT_TIME = #{record.reportTime,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_CODE = #{record.verifyDoctorCode,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_NAME = #{record.verifyDoctorName,jdbcType=VARCHAR},
+            VERIFY_TIME = #{record.verifyTime,jdbcType=VARCHAR},
+            SPECIMEN_CODE = #{record.specimenCode,jdbcType=VARCHAR},
+            SPECIMEN_NAME = #{record.specimenName,jdbcType=VARCHAR},
+            INSTITUTION_CODE = #{record.institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+            exam_opinion = #{record.examOpinion,jdbcType=VARCHAR},
+            department_code = #{record.departmentCode,jdbcType=VARCHAR},
+            department_name = #{record.departmentName,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.etong.exchange.preposition.entity.LabReport" >
+        update tb_lab_report
+        <set >
+            <if test="examNo != null" >
+                EXAM_NO = #{examNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="examDoctorCode != null" >
+                EXAM_DOCTOR_CODE = #{examDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="examDoctorName != null" >
+                EXAM_DOCTOR_NAME = #{examDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="examTime != null" >
+                EXAM_TIME = #{examTime,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDoctorCode != null" >
+                REPORT_DOCTOR_CODE = #{reportDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDoctorName != null" >
+                REPORT_DOCTOR_NAME = #{reportDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportTime != null" >
+                REPORT_TIME = #{reportTime,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorCode != null" >
+                VERIFY_DOCTOR_CODE = #{verifyDoctorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyDoctorName != null" >
+                VERIFY_DOCTOR_NAME = #{verifyDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyTime != null" >
+                VERIFY_TIME = #{verifyTime,jdbcType=VARCHAR},
+            </if>
+            <if test="specimenCode != null" >
+                SPECIMEN_CODE = #{specimenCode,jdbcType=VARCHAR},
+            </if>
+            <if test="specimenName != null" >
+                SPECIMEN_NAME = #{specimenName,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionCode != null" >
+                INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="examOpinion != null" >
+                exam_opinion = #{examOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentCode != null" >
+                department_code = #{departmentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentName != null" >
+                department_name = #{departmentName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.etong.exchange.preposition.entity.LabReport" >
+        update tb_lab_report
+        set EXAM_NO = #{examNo,jdbcType=VARCHAR},
+            REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            EXAM_DOCTOR_CODE = #{examDoctorCode,jdbcType=VARCHAR},
+            EXAM_DOCTOR_NAME = #{examDoctorName,jdbcType=VARCHAR},
+            EXAM_TIME = #{examTime,jdbcType=VARCHAR},
+            REPORT_DOCTOR_CODE = #{reportDoctorCode,jdbcType=VARCHAR},
+            REPORT_DOCTOR_NAME = #{reportDoctorName,jdbcType=VARCHAR},
+            REPORT_TIME = #{reportTime,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_CODE = #{verifyDoctorCode,jdbcType=VARCHAR},
+            VERIFY_DOCTOR_NAME = #{verifyDoctorName,jdbcType=VARCHAR},
+            VERIFY_TIME = #{verifyTime,jdbcType=VARCHAR},
+            SPECIMEN_CODE = #{specimenCode,jdbcType=VARCHAR},
+            SPECIMEN_NAME = #{specimenName,jdbcType=VARCHAR},
+            INSTITUTION_CODE = #{institutionCode,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            exam_opinion = #{examOpinion,jdbcType=VARCHAR},
+            department_code = #{departmentCode,jdbcType=VARCHAR},
+            department_name = #{departmentName,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>
